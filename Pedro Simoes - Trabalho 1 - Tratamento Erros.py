@@ -13,10 +13,12 @@ class ListaDeNumeros:
             resultado = self.lista[posicao]
 
         except IndexError:
-            print('Erro! Esse valor da lista não pôde ser acedido.')
+            print('\nErro! Esse valor da lista não existe ou não pôde ser acedido.')
+            return False
 
         else:
-            print(f'O valor da lista na posição {posicao} é {resultado}.')
+            print(f'\nO valor da lista na posição {posicao} é {resultado}.\n')
+            return True
 
 
     def dividir_elemento(self, posicao, dividor):
@@ -25,10 +27,10 @@ class ListaDeNumeros:
             resultado = self.lista[posicao] / dividor
         
         except ZeroDivisionError:
-            print('Erro! Divisão por 0')
+            print('\nErro! Divisão por 0.')
         
         else:
-            print(f'{resultado:.2f}')
+            print(f'\nO resultado da divisão de {self.lista[posicao]} por {divisor} é {resultado:.2f}.')
 
 
 def limpar():
@@ -42,11 +44,38 @@ limpar()
 
 lista = ListaDeNumeros([1, 2, 3, 4, 5, 6])
 
-print('----- Valor do elemento da lista: -----')
-posicao = int(input('Introduz uma posição da lista: '))
-lista.obter_elemento(posicao)
 
-print('----- Divisão do elemento da lista -----')
-lista.dividir_elemento(2, 1)
+verificacao = False
 
-#falta aqui
+while verificacao == False:
+    try:
+        print('----- Valor do elemento da lista: -----')
+
+        posicao = int(input('Introduz uma posição da lista: '))
+        if not lista.obter_elemento(posicao):
+            raise
+    except:
+        print('Tenta novamente.\n')
+    else:
+        verificacao = True
+
+
+verificacao = False
+
+while verificacao == False:
+    try:
+        print('\n----- Divisão do elemento da lista -----')
+
+        posicao = int(input('Introduz uma posição da lista: '))
+        if lista.obter_elemento(posicao):
+
+            divisor = int(input(f'Introduz um valor para {lista.lista[posicao]} ser dividido: '))
+            lista.dividir_elemento(posicao, divisor)
+        else:
+            raise
+    except:
+        print('Tenta novamente.\n')
+    else:
+        verificacao = True
+
+print()
