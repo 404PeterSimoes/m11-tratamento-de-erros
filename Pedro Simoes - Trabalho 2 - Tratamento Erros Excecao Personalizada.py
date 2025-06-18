@@ -97,6 +97,8 @@ while not verificacao:
         if acao == 1:
             valor = int(input(('Qual o valor que pretende depositar?\n')))
 
+        # adicionar aqui?
+
         elif acao == 2:
             valor = int(input(('Qual o valor que pretende levantar?\n')))
 
