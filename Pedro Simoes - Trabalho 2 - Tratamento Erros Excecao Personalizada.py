@@ -45,14 +45,99 @@ for i in range(0, len(contas)):
     print(f'{i + 1} - {contas[i].titular}')
 
 verificacao = False
-
 while not verificacao:
     try:
-        n = int(input('\nIntroduz o número de uma conta: '))
+        n = int(input('\nIntroduza o número de uma conta: '))
+        n -= 1
 
-        
-
+    # Caso o valor introduzido não seja um inteiro
     except:
-        pass
+        print('Tenta novamente.')
+
+    # Se for inteiro
+    else:
+        limpar()
+        try:
+            contaselecionada = contas[n]
+        
+        # Caso o valor introduzido não seja um índice válido da lista de contas
+        except IndexError:
+            print('O número de conta introduzido não existe')
+
+        # Se for um índice válido, sair do ciclo
+        else:
+            verificacao = True
+
+print(f'Conta selecionada:\n\n'
+      f'{n} - {contaselecionada.titular}\n'
+      f'Saldo - {contaselecionada.saldo}€')
+
+verificacao = False
+while not verificacao:
+    try:
+        acao = int(input('\nQue ação pretende realizar?'
+                        '\n1 - Depositar'
+                        '\n2 - Levantar\n'))
+        
+        if not (acao == 1 or acao == 2):
+            raise
+        
+    # Caso o valor introduzido não seja um inteiro
+    except:
+        print('Tenta novamente.')
+
+    # Se for inteiro, sair do ciclo
     else:
         verificacao = True
+
+
+verificacao = False
+while not verificacao:
+    try:
+        if acao == 1:
+            valor = int(input(('Qual o valor que pretende depositar?\n')))
+
+        elif acao == 2:
+            valor = int(input(('Qual o valor que pretende levantar?\n')))
+
+    except:
+        print('Tenta novamente.')
+
+    else:
+        verificacao = True
+
+
+verificacao = False
+
+if acao == 1:
+
+    while not verificacao:
+        try:
+            contaselecionada.depositar(valor)
+        
+        except SaldoInsuficienteError:
+            print('O valor que pretende depositar não é válido.')
+
+        except:
+            print('Tenta novamente.')
+
+        else:
+            print(f'Valor de {valor}€ depositado na conta de nome {contaselecionada.titular}!\n'
+                  f'Novo Saldo - {contaselecionada.saldo}€')
+
+elif acao == 2:
+
+    while not verificacao:
+        try:
+            contaselecionada.levantar(valor)
+
+
+        except ValorInvalidoError:
+            print('Não possui saldo suficiente para esse levantamento.')
+
+        except:
+            print('Tenta novamente.')
+
+        else:
+            print(f'Valor de {valor}€ depositado na conta de nome {contaselecionada.titular}!\n'
+                f'Novo Saldo - {contaselecionada.saldo}€')
